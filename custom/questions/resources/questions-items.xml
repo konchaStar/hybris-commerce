@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<itemtypes>
+		<itemtype code="Question" generate="true" autocreate="true">
+			<deployment table="questions" typecode="20201"/>
+			<attributes>
+				<attribute qualifier="Code" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="question" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="questionCustomer" type="Customer">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="answer" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="answerCustomer" type="Customer">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
+</items>
