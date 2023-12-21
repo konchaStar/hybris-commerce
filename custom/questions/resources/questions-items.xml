@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 			xsi:noNamespaceSchemaLocation="items.xsd">
+	<relations>
+		<relation code="Product2Question" localized="false">
+			<sourceElement type="Product" qualifier="product" cardinality="one">
+				<modifiers read="true" write="true" search="true" optional="true"/>
+			</sourceElement>
+			<targetElement type="Question" qualifier="questions" cardinality="many" collectiontype="list">
+				<modifiers read="true" write="true" search="true" optional="true"/>
+			</targetElement>
+		</relation>
+	</relations>
 
 	<itemtypes>
 		<itemtype code="Question" generate="true" autocreate="true">
@@ -24,7 +34,7 @@
 			</attributes>
 		</itemtype>
 
-		<itemtype code="QuestionCMSComponent" extends="AbstractCMSComponent">
+		<itemtype code="QuestionCMSComponent" extends="AbstractCMSComponent" generate="true" autocreate="true">
 			<attributes>
 				<attribute qualifier="numberOfQuestionsToShow" type="java.lang.Integer">
 					<persistence type="property"/>
