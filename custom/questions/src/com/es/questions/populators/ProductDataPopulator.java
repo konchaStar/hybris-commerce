@@ -14,10 +14,10 @@ public class ProductDataPopulator implements Populator<ProductModel, ProductData
     private Converter<QuestionModel, QuestionsData> questionsDataConverter;
 
     @Override
-    public void populate(ProductModel productModel, ProductData productData) throws ConversionException {
-        List<QuestionModel> questionModels = productModel.getQuestions();
+    public void populate(ProductModel product, ProductData productData) throws ConversionException {
+        List<QuestionModel> questions = product.getQuestions();
 
-        productData.setQuestions(questionsDataConverter.convertAll(questionModels));
+        productData.setQuestions(questionsDataConverter.convertAll(questions));
     }
 
     public void setQuestionsDataConverter(Converter<QuestionModel, QuestionsData> questionsDataConverter) {

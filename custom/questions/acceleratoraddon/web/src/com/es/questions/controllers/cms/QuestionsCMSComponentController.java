@@ -2,11 +2,16 @@ package com.es.questions.controllers;
 
 import com.es.questions.facades.ProductFacade;
 import com.es.questions.model.QuestionCMSComponentModel;
+import de.hybris.platform.acceleratorservices.data.RequestContextData;
 import de.hybris.platform.addonsupport.controllers.cms.AbstractCMSAddOnComponentController;
+import de.hybris.platform.core.model.product.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/views/QuestionCMSComponentController")
@@ -17,10 +22,19 @@ public class QuestionsCMSComponentController extends AbstractCMSAddOnComponentCo
     private ProductFacade productFacade;
 
     @Override
-    protected void fillModel(javax.servlet.http.HttpServletRequest request, Model model, QuestionCMSComponentModel component) {
-        String code = getRequestContextData(request).getProduct().getCode();
+    protected void fillModel(HttpServletRequest request, Model model, QuestionCMSComponentModel component) {
+        RequestContextData data = getRequestContextData(request);
 
-        productFacade.getProduct(code).ifPresent(product -> model.addAttribute(QUESTIONS, product.getQuestions()));
+        if (!Objects.nonNull(data)) {
+            ProductModel product = data.getProduct();
+
+            if(!Objects.nonNull(product)) {
+                String code = product.getCode();
+
+                productFacade.getProduct(code).ifPresent(prod -> model.addAttribute(QUESTIONS, prod.getQuestions()));
+            }
+
+        }
     }
 
     public void setProductFacade(ProductFacade productFacade) {

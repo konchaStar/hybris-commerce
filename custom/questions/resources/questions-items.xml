@@ -16,7 +16,7 @@
 		<itemtype code="Question" generate="true" autocreate="true">
 			<deployment table="questions" typecode="20201"/>
 			<attributes>
-				<attribute qualifier="Code" type="java.lang.String">
+				<attribute qualifier="code" type="java.lang.String">
 					<persistence type="property"/>
 				</attribute>
 				<attribute qualifier="question" type="java.lang.String">

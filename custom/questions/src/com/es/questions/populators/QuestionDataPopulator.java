@@ -7,10 +7,10 @@ import questions.data.QuestionsData;
 
 public class QuestionDataPopulator implements Populator<QuestionModel, QuestionsData> {
     @Override
-    public void populate(QuestionModel questionModel, QuestionsData questionsData) throws ConversionException {
-        questionsData.setQuestion(questionModel.getQuestion());
-        questionsData.setAnswer(questionModel.getAnswer());
-        questionsData.setQuestionCustomerName(questionModel.getQuestionCustomer().getName());
-        questionsData.setAnswerCustomerName(questionModel.getAnswerCustomer().getName());
+    public void populate(QuestionModel question, QuestionsData questionsData) throws ConversionException {
+        questionsData.setQuestion(question.getQuestion());
+        questionsData.setAnswer(question.getAnswer());
+        questionsData.setQuestionCustomerName(question.getQuestionCustomer().getName());
+        questionsData.setAnswerCustomerName(question.getAnswerCustomer().getName());
     }
 }
