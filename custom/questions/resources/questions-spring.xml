@@ -32,4 +32,32 @@
 		<property name="extensionName" value="questions" />
 	</bean>
 
+	<bean id="questionDataPopulator" class="com.es.questions.populators.QuestionDataPopulator"/>
+
+	<bean id="questionDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="questions.data.QuestionsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="questionDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean name="productDataPopulator" class="com.es.questions.populators.ProductDataPopulator">
+		<property name="questionDataConverter" ref="questionDataConverter"/>
+	</bean>
+
+	<bean id="productConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="populators">
+			<list>
+				<ref bean="productDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean name="productFacade" class="com.es.questions.facades.impl.DefaultProductFacade">
+		<property name="productService" ref="productService"/>
+		<property name="converter" ref="productConverter"/>
+	</bean>
 </beans>
