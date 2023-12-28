@@ -60,4 +60,15 @@
 		<property name="productService" ref="productService"/>
 		<property name="converter" ref="productConverter"/>
 	</bean>
+
+	<bean id="productQuestionsValueProvider"
+		  class="com.es.questions.providers.ProductQuestionsValueProvider" >
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<alias name="customSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
+	<bean id="customSearchResultProductPopulator"
+		  class="com.es.questions.populators.CustomSearchResultVariantProductPopulator"
+		  parent="variantCommerceSearchResultProductPopulator">
+	</bean>
 </beans>
