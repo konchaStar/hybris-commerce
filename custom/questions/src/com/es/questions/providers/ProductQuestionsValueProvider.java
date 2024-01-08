@@ -2,7 +2,6 @@ package com.es.questions.providers;
 
 import de.hybris.platform.core.model.c2l.LanguageModel;
 import de.hybris.platform.core.model.product.ProductModel;
-import de.hybris.platform.servicelayer.i18n.CommonI18NService;
 import de.hybris.platform.solrfacetsearch.config.IndexConfig;
 import de.hybris.platform.solrfacetsearch.config.IndexedProperty;
 import de.hybris.platform.solrfacetsearch.config.exceptions.FieldValueProviderException;
@@ -13,6 +12,7 @@ import de.hybris.platform.solrfacetsearch.provider.FieldValueProvider;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductQuestionsValueProvider implements FieldValueProvider {
     private static final String ITEM_NOT_PRODUCT_ERROR = "Item is not product";
@@ -28,10 +28,10 @@ public class ProductQuestionsValueProvider implements FieldValueProvider {
 
             if (indexedProperty.isLocalized()) {
                 Collection<LanguageModel> languages = indexConfig.getLanguages();
-
-                for (LanguageModel language : languages) {
-                    fieldValues.addAll(createFieldValue(product, language, indexedProperty));
-                }
+                languages.stream()
+                        .forEach(language -> {
+                            fieldValues.addAll(createFieldValue(product, language, indexedProperty));
+                        });
             } else {
                 fieldValues.addAll(createFieldValue(product, null, indexedProperty));
             }
@@ -56,13 +56,14 @@ public class ProductQuestionsValueProvider implements FieldValueProvider {
     protected void addFieldValues(List<FieldValue> fieldValues, IndexedProperty indexedProperty, LanguageModel language, Object value) {
         Collection<String> fieldNames = fieldNameProvider.getFieldNames(indexedProperty, language == null ? null : language.getIsocode());
 
-        for (String fieldName : fieldNames) {
-            fieldValues.add(new FieldValue(fieldName, value));
-        }
+        fieldNames.stream()
+                .forEach(fieldName -> {
+                    fieldValues.add(new FieldValue(fieldName, value));
+                });
     }
 
     private Integer getQuestionsCount(ProductModel product) {
-        return product.getQuestions().size();
+        return Optional.ofNullable(product.getQuestions()).orElse(new ArrayList<>()).size();
     }
 
     public void setFieldNameProvider(FieldNameProvider fieldNameProvider) {
