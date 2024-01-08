@@ -1,0 +1,9 @@
+INSERT_UPDATE SolrValueRangeSet; name[unique = true]        ; qualifier; type; solrValueRanges(&ValueRefID)
+                               ; productQuetionsCountRanger ; default  ; int ; questionsCountRangeRef1,questionsCountRangeRef2,questionsCountRangeRef3,questionsCountRangeRef4,questionsCountRangeRef5
+
+INSERT_UPDATE SolrValueRange; &ValueRefID             ; solrValueRangeSet(name)[unique = true]; name[unique = true]; from; to
+                            ; questionsCountRangeRef1 ; productQuetionsCountRanger            ; 1                  ; 1   ; 1
+                            ; questionsCountRangeRef2 ; productQuetionsCountRanger            ; 2                  ; 2   ; 2
+                            ; questionsCountRangeRef3 ; productQuetionsCountRanger            ; 3                  ; 3   ; 3
+                            ; questionsCountRangeRef4 ; productQuetionsCountRanger            ; 4                  ; 4   ; 4
+                            ; questionsCountRangeRef5 ; productQuetionsCountRanger            ; 5-more             ; 5   ;
