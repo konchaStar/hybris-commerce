@@ -9,5 +9,6 @@
     </bean>
     <bean class="de.hybris.platform.commercefacades.product.data.ProductData">
         <property name="questions" type="java.util.List&lt;questions.data.QuestionsData&gt;"/>
+        <property name="questionsCount" type="java.lang.Integer"/>
     </bean>
 </beans>

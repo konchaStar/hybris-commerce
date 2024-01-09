@@ -1,5 +1,6 @@
-package com.es.questions.controllers;
+package com.es.questions.controllers.cms;
 
+import com.es.questions.controllers.QuestionsControllerConstants;
 import com.es.questions.facades.ProductFacade;
 import com.es.questions.model.QuestionCMSComponentModel;
 import de.hybris.platform.acceleratorservices.data.RequestContextData;
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
-@Controller
-@RequestMapping("/views/QuestionCMSComponentController")
-public class QuestionsCMSComponentController extends AbstractCMSAddOnComponentController<QuestionCMSComponentModel> {
+@Controller("QuestionCMSComponentController")
+@RequestMapping(QuestionsControllerConstants.Actions.Cms.QuestionCMSComponent)
+public class QuestionCMSComponentController extends AbstractCMSAddOnComponentController<QuestionCMSComponentModel> {
     private static final String QUESTIONS = "questions";
 
     @Autowired

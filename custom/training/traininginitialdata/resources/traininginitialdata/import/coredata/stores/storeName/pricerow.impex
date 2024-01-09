@@ -1,0 +1,6 @@
+$productCatalog = electronicsProductCatalog
+$onlineProductCatalogVersion = Online
+$catalogVersion = catalogVersion(catalog(id[default = $productCatalog]), version[default = $onlineProductCatalogVersion])
+INSERT_UPDATE PriceRow; product(code, $catalogVersion); net[unique = true, default = false]; currency(isocode); price; unit(code); minqtd; giveAwayPrice; channel(code)
+                      ; 1446509                                       ;                                    ; USD         ; 900  ; pieces    ; 2    ; false        ;
+                      ; 1446509                                       ;                                    ; USD         ; 800  ; pieces    ; 10   ; false        ;
