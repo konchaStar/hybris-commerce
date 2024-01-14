@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
-           
-    <context:annotation-config/> 
+	<context:annotation-config/>
+	<import resource="product-spring.xml"/>
+	<import resource="converters-spring.xml"/>
 
 	<bean id="questionsCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
 		<property name="supportedChannels">
 			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
 				<value>B2C</value>
-
 			</list>
 		</property>
 		<property name="addonExtensionMetadata">
@@ -28,13 +30,17 @@
 		</property>
 	</bean>
 
-	<bean id="questionsSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
-		<property name="extensionName" value="questions" />
+	<bean id="questionsSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener">
+		<property name="extensionName" value="questions"/>
 	</bean>
 
-	<bean id="questionDataPopulator" class="com.es.questions.populators.QuestionDataPopulator"/>
+	<alias name="defaultQuestionDataPopulator" alias="questionDataPopulator"/>
+	<bean id="defaultQuestionDataPopulator"
+		  class="com.es.questions.populators.QuestionDataPopulator">
+	</bean>
 
-	<bean id="questionDataConverter" parent="abstractPopulatingConverter">
+	<alias name="defaultQuestionConverter" alias="questionConverter"/>
+	<bean id="defaultQuestionConverter" parent="abstractPopulatingConverter">
 		<property name="targetClass" value="questions.data.QuestionsData"/>
 		<property name="populators">
 			<list>
@@ -43,32 +49,24 @@
 		</property>
 	</bean>
 
-	<bean name="productDataPopulator" class="com.es.questions.populators.ProductDataPopulator">
-		<property name="questionDataConverter" ref="questionDataConverter"/>
+	<alias name="defaultProductQuestionDataPopulator" alias="productQuestionDataPopulator"/>
+	<bean id="defaultProductQuestionDataPopulator"
+		  class="com.es.questions.populators.ProductDataPopulator">
+		<property name="questionsDataConverter" ref="questionConverter"/>
 	</bean>
 
-	<bean id="productConverter" parent="abstractPopulatingConverter">
+	<bean id="customProductConverter" parent="defaultProductConverter">
 		<property name="targetClass" value="de.hybris.platform.commercefacades.product.data.ProductData"/>
 		<property name="populators">
-			<list>
-				<ref bean="productDataPopulator"/>
+			<list merge="true">
+				<ref bean="productQuestionDataPopulator"/>
 			</list>
 		</property>
 	</bean>
 
-	<bean name="productFacade" class="com.es.questions.facades.impl.DefaultProductFacade">
+	<alias name="defaultProductQuestionFacade" alias="productQuestionFacade"/>
+	<bean id="defaultProductQuestionFacade" class="com.es.questions.facades.impl.DefaultProductFacade">
+		<property name="converter" ref="customProductConverter"/>
 		<property name="productService" ref="productService"/>
-		<property name="converter" ref="productConverter"/>
-	</bean>
-
-	<bean id="productQuestionsValueProvider"
-		  class="com.es.questions.providers.ProductQuestionsValueProvider" >
-		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
-	</bean>
-
-	<alias name="customSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
-	<bean id="customSearchResultProductPopulator"
-		  class="com.es.questions.populators.CustomSearchResultVariantProductPopulator"
-		  parent="variantCommerceSearchResultProductPopulator">
 	</bean>
 </beans>
