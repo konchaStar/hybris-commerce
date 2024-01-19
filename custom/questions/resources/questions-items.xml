@@ -34,7 +34,8 @@
 			</attributes>
 		</itemtype>
 
-		<itemtype code="QuestionCMSComponent" extends="AbstractCMSComponent" generate="true" autocreate="true">
+		<itemtype code="QuestionsCMSComponent" extends="AbstractCMSComponent" generate="true" autocreate="true"
+			abstract="false" jaloclass="com.es.questions.jalo.QuestionsCMSComponent">
 			<attributes>
 				<attribute qualifier="numberOfQuestionsToShow" type="java.lang.Integer">
 					<persistence type="property"/>
@@ -44,5 +45,16 @@
 				</attribute>
 			</attributes>
 		</itemtype>
+
+		<itemtype code="Product" autocreate="false" generate="true">
+			<attributes>
+				<attribute qualifier="warrantyYears" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="WarrantyCMSComponent" extends="AbstractCMSComponent" generate="true" autocreate="true"
+				  abstract="false" jaloclass="com.es.questions.jalo.WarrantyCMSComponent"/>
 	</itemtypes>
 </items>

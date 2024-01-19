@@ -1,0 +1,2 @@
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; type(code); fieldValueProvider    ; valueProviderParameter
+                                 ; warrantyYears      ; int       ; springELValueProvider ; warrantyYears

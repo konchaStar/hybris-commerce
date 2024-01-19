@@ -73,6 +73,16 @@
 		</ea:editorArea>
 	</context>
 
+	<context component="editorArea" type="Product" merge-by="type">
+		<ea:editorArea xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea" name="">
+			<ea:essentials>
+				<ea:essentialSection name="hmc.essential">
+					<ea:attribute qualifier="warrantyYears" position="1" label="warranty"/>
+				</ea:essentialSection>
+			</ea:essentials>
+			<ea:tab name="hmc.administration"/>
+		</ea:editorArea>
+	</context>
 
 	<context component="create-wizard" type="Question">
 		<wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="QuestionWizard"
@@ -92,8 +102,7 @@
 				</wz:content>
 				<wz:navigation id="step.navigation">
 					<wz:cancel/>
-					<wz:done
-							visible="!#empty(newQuestion.code) and !#empty(newQuestion.question) and newQuestion.questionCustomer != null">
+					<wz:done visible="!#empty(newQuestion.code) and !#empty(newQuestion.question) and newQuestion.questionCustomer != null">
 						<wz:save property="newQuestion"/>
 					</wz:done>
 				</wz:navigation>
