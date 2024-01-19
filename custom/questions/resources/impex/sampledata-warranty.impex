@@ -1,5 +1,5 @@
-$contentCatalog = electronicsContentCatalog
-$contentCV = catalogVersion(catalog(id[default = $contentCatalog]), version[default = 'Online'])
+$productCatalog = electronicsProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Online'])[unique = true, default = $productCatalog:Online]
 
-INSERT_UPDATE Product; code[unique = true]; catalogVersion[unique = true][default = $contentCV]; warrantyYears
-                     ; 1446509            ;                                                    ; 3
+INSERT_UPDATE Product; code[unique = true]; warrantyYears; $catalogVersion
+                     ; 1446509            ; 3            ;
