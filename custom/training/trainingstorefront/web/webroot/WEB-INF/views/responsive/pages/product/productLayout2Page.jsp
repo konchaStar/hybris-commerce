@@ -8,6 +8,12 @@
 		<cms:component component="${comp}" element="div" class="productDetailsPageSection1-component"/>
 	</cms:pageSlot>
 	<product:productDetailsPanel />
+	<cms:pageSlot position="Questions" var="component" element="div">
+		<cms:component component="${component}" element="div"/>
+	</cms:pageSlot>
+	<cms:pageSlot position="Warranty" var="component" element="div">
+		<cms:component component="${component}" element="div"/>
+	</cms:pageSlot>
 	<cms:pageSlot position="CrossSelling" var="comp" element="div" class="productDetailsPageSectionCrossSelling">
 		<cms:component component="${comp}" element="div" class="productDetailsPageSectionCrossSelling-component"/>
 	</cms:pageSlot>

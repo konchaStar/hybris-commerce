@@ -1,7 +1,7 @@
 $contentCatalog = electronicsContentCatalog
-$contentCV = catalogVersion(catalog(id[default=$contentCatalog]), version[default='Staged'])
+$contentCV = catalogVersion(catalog(id[default = $contentCatalog]), version[default = 'Staged'])
 
-INSERT_UPDATE QuestionCMSComponent; $contentCV[unique = true]; uid[unique = true] ; name                    ; &componentRef      ; fontSize; numberOfQuestionsToShow
+INSERT_UPDATE QuestionsCMSComponent; $contentCV[unique = true]; uid[unique = true] ; name                    ; &componentRef      ; fontSize; numberOfQuestionsToShow
                                    ;                          ; QuestionsComponent ; Questions CMS Component ; QuestionsComponent ; 16      ; 2
 
 INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'ProductDetailsPageTemplate']; validComponentTypes(code); compTypeGroup(code)
@@ -12,5 +12,19 @@ INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name  
 
 INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]                  ; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'ProductDetailsPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
                                     ;                          ; questionsslotforpage-ProductDetails ; Questions              ;                                                                                     ; QuestionSlot                               ; true
-INSERT_UPDATE ContentSlotForPage; $contentCV[unique=true]; uid[unique=true]; position[unique=true]; page(uid, $contentCV)[unique=true][default='productDetails']; contentSlot(uid, $contentCV)[unique=true]
-                                ;                        ;questions        ; Questions            ;                                                ; QuestionSlot
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'productDetails']; contentSlot(uid, $contentCV)[unique = true]
+                                ;                          ; questions         ; Questions              ;                                                                 ; QuestionSlot
+
+INSERT_UPDATE WarrantyCMSComponent; $contentCV[unique = true]; uid[unique = true] ; name                    ; &componentRef
+                                  ;                          ; WarrantyComponent ; Warranty CMS Component ; WarrantyComponent
+
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'ProductDetailsPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+                             ; WarrantySlot       ;                                                                                 ;                          ; wide
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name          ; active; cmsComponents(&componentRef)
+                         ;                          ; WarrantySlot      ; Warranty Slot ; true  ; WarrantyComponent
+
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]                  ; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'ProductDetailsPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+                                    ;                          ; warrantyslotforpage-ProductDetails ; Warranty              ;                                                                                     ; WarrantySlot                               ; true
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'productDetails']; contentSlot(uid, $contentCV)[unique = true]
+                                ;                          ; warranty         ; Warranty              ;                                                                 ; WarrantySlot
