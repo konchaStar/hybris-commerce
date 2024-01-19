@@ -56,6 +56,9 @@
 				<action:actions element="div" parentComponent="${component}"  />
 			</div>
 		</div>
+		<div>
+			<p>Warranty: ${product.warrantyYears}</p>
+		</div>
 
 	</ycommerce:testId>
 </li>

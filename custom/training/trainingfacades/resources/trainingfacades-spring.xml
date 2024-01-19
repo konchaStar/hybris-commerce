@@ -187,4 +187,11 @@
 	</bean>
 
 	<bean id="genderData" class="de.hybris.training.facades.product.data.GenderData" scope="prototype"/>
+
+	<bean id="warrantyYearsPopulator" class="de.hybris.training.facades.populators.WarrantyYearsProductPopulator"/>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="warrantyYearsPopulator"/>
+	</bean>
 </beans>
